@@ -5,6 +5,7 @@ warnings.simplefilter('ignore', BiopythonWarning)
 import os
 
 import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
@@ -50,7 +51,3 @@ amino_acids = get_aa('6x8j.pdb')
 sns.countplot(x=amino_acids, color='C00')
 plt.xticks(rotation=45)
 plt.show()
-
-
-
-
