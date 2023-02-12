@@ -50,4 +50,55 @@ amino_acids = get_aa('6x8j.pdb')
 
 sns.countplot(x=amino_acids, color='C00')
 plt.xticks(rotation=45)
+#plt.show()
+plt.savefig("examined_amino_acid_frequency.pdf", dpi=400,  bbox_inches='tight')
+
+def get_helix_start(file):
+    '''Accepts a PDB files name (string) and returns a list of residues
+    that occur at the start of a helix.
+    
+     >>> ('1abc.pdb') -> ['GLY', 'ALA', 'LYS']
+    '''
+    
+    AA_list = []
+    
+    with open(file, 'r') as f:
+        for line in f:
+            if line.startswith('HELIX'):
+                AA_list.append(line[15:18])
+    
+    return AA_list
+
+def get_sheet_start(file):
+    '''Accepts a PDB files name (string) and returns a list of residues
+    that occur at the start of a sheet.
+    
+     >>> ('1abc.pdb') -> ['GLY', 'ALA', 'LYS']
+    '''
+    
+    AA_list = []
+    
+    with open(file, 'r') as f:
+        for line in f:
+            if line.startswith('SHEET'):
+                AA_list.append(line[17:20])
+    
+    
+    return AA_list
+
+path, _ = os.path.split(os.getcwd())
+top80 = os.path.join(path, 'Top80')
+
+helix_start = []
+sheet_start = []
+general = []
+
+for file in os.listdir(top80):
+    if file.endswith('pdb'):
+        helix_start.extend(get_helix_start(os.path.join(top80,file)))
+        sheet_start.extend(get_sheet_start(os.path.join(top80,file)))
+        general.extend(get_aa(os.path.join(top80,file)))
+
+sns.countplot(x=helix_start, palette='viridis')
+plt.xticks(rotation=90)
 plt.show()
