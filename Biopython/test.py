@@ -50,7 +50,3 @@ amino_acids = get_aa('6x8j.pdb')
 sns.countplot(x=amino_acids, color='C00')
 plt.xticks(rotation=45)
 plt.show()
-
-
-
-
